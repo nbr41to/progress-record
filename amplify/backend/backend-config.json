@@ -23,5 +23,13 @@
       "type": "cicd",
       "lastPushTimeStamp": "2021-08-03T10:01:20.650Z"
     }
+  },
+  "auth": {
+    "progressrecdf0b61cb": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
   }
 }
