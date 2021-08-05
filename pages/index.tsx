@@ -33,4 +33,4 @@ const Home = () => {
   );
 };
 
-export default withAuthenticator(Home);
+export default Home;
