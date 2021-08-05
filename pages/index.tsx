@@ -8,11 +8,35 @@ import {
   withAuthenticator,
 } from '@aws-amplify/ui-react';
 
-const federated = {
-  google_client_id: '*.apps.googleusercontent.com',
-};
-
 const Home = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    Hub.listen('auth', ({ payload: { event, data } }) => {
+      switch (event) {
+        case 'signIn':
+        case 'cognitoHostedUI':
+          getUser().then((userData) => setUser(userData));
+          break;
+        case 'signOut':
+          setUser(null);
+          break;
+        case 'signIn_failure':
+        case 'cognitoHostedUI_failure':
+          console.log('Sign in failure', data);
+          break;
+      }
+    });
+
+    getUser().then((userData) => setUser(userData));
+  }, []);
+
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
+  }
+
   const googleLogin = () => {
     Auth.federatedSignIn({ provider: 'Google' });
   };
@@ -26,6 +50,16 @@ const Home = () => {
       />
       <button onClick={googleLogin}>Google Login</button>
       <button onClick={() => Auth.federatedSignIn()}>Login</button>
+      <div>
+        <p>User: {user ? JSON.stringify(user.attributes) : 'None'}</p>
+        {user ? (
+          <AmplifySignOut />
+        ) : (
+          <button onClick={() => Auth.federatedSignIn()}>
+            Federated Sign In
+          </button>
+        )}
+      </div>
       <AmplifyAuthContainer>
         <AmplifyAuthenticator />
       </AmplifyAuthContainer>
@@ -33,6 +67,5 @@ const Home = () => {
   );
 };
 
-// export default Home;
-// export default withAuthenticator(Home);
-export default withAuthenticator(Home, true, [], federated);
+export default Home;
+export default withAuthenticator(Home);
