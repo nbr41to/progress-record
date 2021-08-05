@@ -14,7 +14,7 @@ const federated = {
 
 const Home = () => {
   const googleLogin = () => {
-    // Auth.federatedSignIn({ provider: 'google' });
+    Auth.federatedSignIn({ provider: 'Google' });
   };
 
   return (
@@ -33,4 +33,6 @@ const Home = () => {
   );
 };
 
-export default Home;
+// export default Home;
+// export default withAuthenticator(Home);
+export default withAuthenticator(Home, true, [], federated);

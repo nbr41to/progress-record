@@ -1,4 +1,4 @@
-type Users @model @auth(rules: [{allow: public}]) {
+type Users @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   Progresses: [Progress] @connection(keyName: "byUsers", fields: ["id"])
@@ -10,7 +10,7 @@ enum UserType {
   COMMON
 }
 
-type Conference @model @auth(rules: [{allow: public}]) {
+type Conference @model @auth(rules: [{ allow: public }]) {
   id: ID!
   title: String!
   created_at: AWSTimestamp
@@ -18,7 +18,10 @@ type Conference @model @auth(rules: [{allow: public}]) {
   Agenda: Agenda @connection
 }
 
-type Progress @model @auth(rules: [{allow: public}]) @key(name: "byUsers", fields: ["users_id"]) {
+type Progress
+  @model
+  @auth(rules: [{ allow: public }])
+  @key(name: "byUsers", fields: ["users_id"]) {
   id: ID!
   name: String!
   contents: [String!]
@@ -34,7 +37,7 @@ type AgendaContent {
   type: AgendaContentType
 }
 
-type Agenda @model @auth(rules: [{allow: public}]) {
+type Agenda @model @auth(rules: [{ allow: public }]) {
   id: ID!
   chat: [AgendaContent!]
   learned: [AgendaContent!]
@@ -48,10 +51,12 @@ enum AgendaContentType {
   WILL_LEARN
 }
 
-type Record @model @auth(rules: [{allow: public}]) @key(name: "byProgress", fields: ["progress_id"]) {
+type Record
+  @model
+  @auth(rules: [{ allow: public }])
+  @key(name: "byProgress", fields: ["progress_id"]) {
   id: ID!
   content: String!
   memo: String
   progress_id: ID
 }
- 
