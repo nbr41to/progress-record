@@ -5,9 +5,14 @@ import {
   AmplifyAuthContainer,
   AmplifyAuthenticator,
   AmplifySignOut,
+  withAuthenticator,
 } from '@aws-amplify/ui-react';
 
-export default function Home() {
+const federated = {
+  google_client_id: '*.apps.googleusercontent.com',
+};
+
+const Home = () => {
   const googleLogin = () => {
     // Auth.federatedSignIn({ provider: 'google' });
   };
@@ -26,4 +31,6 @@ export default function Home() {
       </AmplifyAuthContainer>
     </div>
   );
-}
+};
+
+export default withAuthenticator(Home);
