@@ -1,5 +1,51 @@
-type Todo @model {
+type Users @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
-  description: String
+  Progresses: [Progress] @connection(keyName: "byUsers", fields: ["id"])
 }
+
+type Conference @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String!
+  created_at: AWSTimestamp
+  save_at: AWSTimestamp
+  Agenda: Agenda @connection
+}
+
+type Progress @model @auth(rules: [{allow: public}]) @key(name: "byUsers", fields: ["users_id"]) {
+  id: ID!
+  name: String!
+  contents: [String!]
+  created_at: AWSDateTime
+  users_id: ID!
+  Records: [Record] @connection(keyName: "byProgress", fields: ["id"])
+}
+
+type AgendaContent {
+  ID: ID!
+  user_id: ID!
+  content: String!
+  type: AgendaContentType
+}
+
+type Agenda @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  chat: [AgendaContent!]
+  learned: [AgendaContent!]
+  will_learn: [AgendaContent!]
+  Conference: Conference @connection
+}
+
+enum AgendaContentType {
+  CHAT
+  LEARNED
+  WILL_LEARN
+}
+
+type Record @model @auth(rules: [{allow: public}]) @key(name: "byProgress", fields: ["progress_id"]) {
+  id: ID!
+  content: String!
+  memo: String
+  progress_id: ID
+}
+ 
