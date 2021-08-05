@@ -2,6 +2,11 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const UserType = {
+  "AUTHOR": "AUTHOR",
+  "COMMON": "COMMON"
+};
+
 const AgendaContentType = {
   "CHAT": "CHAT",
   "LEARNED": "LEARNED",
@@ -16,6 +21,7 @@ export {
   Record,
   Conference,
   Agenda,
+  UserType,
   AgendaContentType,
   AgendaContent
 };

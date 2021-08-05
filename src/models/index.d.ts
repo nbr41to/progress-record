@@ -1,5 +1,10 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
+export enum UserType {
+  AUTHOR = "AUTHOR",
+  COMMON = "COMMON"
+}
+
 export enum AgendaContentType {
   CHAT = "CHAT",
   LEARNED = "LEARNED",
@@ -38,6 +43,7 @@ export declare class Users {
   readonly id: string;
   readonly name: string;
   readonly Progresses?: (Progress | null)[];
+  readonly user_type?: UserType | keyof typeof UserType;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Users, UsersMetaData>);

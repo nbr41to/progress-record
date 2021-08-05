@@ -31,6 +31,15 @@ export const schema = {
                         "associatedWith": "users_id"
                     }
                 },
+                "user_type": {
+                    "name": "user_type",
+                    "isArray": false,
+                    "type": {
+                        "enum": "UserType"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -442,6 +451,13 @@ export const schema = {
         }
     },
     "enums": {
+        "UserType": {
+            "name": "UserType",
+            "values": [
+                "AUTHOR",
+                "COMMON"
+            ]
+        },
         "AgendaContentType": {
             "name": "AgendaContentType",
             "values": [
@@ -488,5 +504,5 @@ export const schema = {
             }
         }
     },
-    "version": "ebb744c51b3038dcad2bbf327ec1d4aa"
+    "version": "f4094bb4356ee9c52e8b4488ae7c705c"
 };

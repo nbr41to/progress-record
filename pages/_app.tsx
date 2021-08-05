@@ -1,6 +1,6 @@
 import { Layout } from 'src/components/layout/Layout';
 import '../styles/globals.css';
-import '../styles/reset.css';
+// import '../styles/reset.css';
 
 import Amplify from 'aws-amplify';
 import awsconfig from 'src/aws-exports';
